@@ -15,27 +15,10 @@ return [
 
     'temporary_file_upload' => [
         'disk' => 'local',
-        'middleware' => null,
+        'middleware' => ['web', 'auth.basic'],  // web middleware ekleyin
         'rules' => null,
         'directory' => 'livewire-tmp',
-        'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs.
-            'png',
-            'gif',
-            'bmp',
-            'svg',
-            'wav',
-            'mp4',
-            'mov',
-            'avi',
-            'wmv',
-            'mp3',
-            'm4a',
-            'jpg',
-            'jpeg',
-            'mpga',
-            'webp',
-            'wma',
-        ],
+        'preview_mimes' => false,  // Önizleme devre dışı
         'max_upload_time' => 5, // Maximum upload time in minutes
     ],
 

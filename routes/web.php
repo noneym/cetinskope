@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SkinAnalysisController;
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,6 @@ Route::get('/cilt-analizi/{session_id}', [SkinAnalysisController::class, 'result
 
 // PDF indirme
 Route::get('/cilt-analizi/{session_id}/pdf', [SkinAnalysisController::class, 'downloadPdf'])->name('skin-analysis.pdf');
+
+// Dosya yükleme
+Route::post('/upload-photo', [FileUploadController::class, 'upload'])->name('upload.photo');

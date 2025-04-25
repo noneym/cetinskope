@@ -15,11 +15,28 @@ return [
 
     'temporary_file_upload' => [
         'disk' => 'local',
-        'middleware' => ['web', 'auth.basic'],  // web middleware ekleyin
+        'middleware' => null,  // middleware'i null olarak ayarlıyoruz
         'rules' => null,
         'directory' => 'livewire-tmp',
-        'preview_mimes' => false,  // Önizleme devre dışı
-        'max_upload_time' => 5, // Maximum upload time in minutes
+        'preview_mimes' => [   // Desteklenen dosya türleri
+            'png',
+            'gif',
+            'bmp',
+            'svg',
+            'wav',
+            'mp4',
+            'mov',
+            'avi',
+            'wmv',
+            'mp3',
+            'm4a',
+            'jpg',
+            'jpeg',
+            'mpga',
+            'webp',
+            'wma',
+        ],
+        'max_upload_time' => 5, // Maksimum yükleme süresi (dakika)
     ],
 
     /*

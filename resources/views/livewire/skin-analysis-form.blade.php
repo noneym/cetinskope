@@ -35,7 +35,11 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Ön Profil</label>
                     <label for="frontPhoto" class="input-file-label block @error('frontPhoto') border-red-500 @enderror">
                         @if ($frontPhoto)
-                        <img src="{{ $frontPhoto->temporaryUrl() }}" alt="Ön profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                        <div class="w-full h-32 flex items-center justify-center bg-green-50 rounded mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
                         <span class="text-sm text-green-600">Fotoğraf seçildi</span>
                         @else
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +59,11 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Sol Profil</label>
                     <label for="leftPhoto" class="input-file-label block @error('leftPhoto') border-red-500 @enderror">
                         @if ($leftPhoto)
-                        <img src="{{ $leftPhoto->temporaryUrl() }}" alt="Sol profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                        <div class="w-full h-32 flex items-center justify-center bg-green-50 rounded mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
                         <span class="text-sm text-green-600">Fotoğraf seçildi</span>
                         @else
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,7 +83,11 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Sağ Profil</label>
                     <label for="rightPhoto" class="input-file-label block @error('rightPhoto') border-red-500 @enderror">
                         @if ($rightPhoto)
-                        <img src="{{ $rightPhoto->temporaryUrl() }}" alt="Sağ profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                        <div class="w-full h-32 flex items-center justify-center bg-green-50 rounded mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
                         <span class="text-sm text-green-600">Fotoğraf seçildi</span>
                         @else
                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

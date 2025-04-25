@@ -34,17 +34,36 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Ön Profil</label>
                     <label for="frontPhoto" class="input-file-label block @error('frontPhoto') border-red-500 @enderror">
-                        @if ($frontPhoto)
-                        <img src="{{ $frontPhoto->temporaryUrl() }}" alt="Ön profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
-                        <span class="text-sm text-green-600">Fotoğraf seçildi</span>
-                        @else
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span class="mt-2 block text-sm text-gray-600">Ön profil fotoğrafını yükle</span>
-                        @endif
-                        <input type="file" id="frontPhoto" wire:model="frontPhoto" class="hidden" accept="image/*">
+                        <div x-data="{ preview: null }" x-init="
+                            $wire.on('frontPhotoUpdated', (event) => {
+                                if (event.temporaryUrl) {
+                                    preview = event.temporaryUrl;
+                                }
+                            });
+                        ">
+                            <template x-if="preview">
+                                <img :src="preview" alt="Ön profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                            </template>
+                            <template x-if="!preview">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="mt-2 block text-sm text-gray-600">Ön profil fotoğrafını yükle</span>
+                                </div>
+                            </template>
+                        </div>
+                        <input type="file" id="frontPhoto" wire:model="frontPhoto" class="hidden" accept="image/*" x-on:change="
+                            const file = $event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    $wire.dispatch('frontPhotoUpdated', { temporaryUrl: e.target.result });
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        ">
                     </label>
                     @error('frontPhoto')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -54,17 +73,36 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Sol Profil</label>
                     <label for="leftPhoto" class="input-file-label block @error('leftPhoto') border-red-500 @enderror">
-                        @if ($leftPhoto)
-                        <img src="{{ $leftPhoto->temporaryUrl() }}" alt="Sol profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
-                        <span class="text-sm text-green-600">Fotoğraf seçildi</span>
-                        @else
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span class="mt-2 block text-sm text-gray-600">Sol profil fotoğrafını yükle</span>
-                        @endif
-                        <input type="file" id="leftPhoto" wire:model="leftPhoto" class="hidden" accept="image/*">
+                        <div x-data="{ preview: null }" x-init="
+                            $wire.on('leftPhotoUpdated', (event) => {
+                                if (event.temporaryUrl) {
+                                    preview = event.temporaryUrl;
+                                }
+                            });
+                        ">
+                            <template x-if="preview">
+                                <img :src="preview" alt="Sol profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                            </template>
+                            <template x-if="!preview">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="mt-2 block text-sm text-gray-600">Sol profil fotoğrafını yükle</span>
+                                </div>
+                            </template>
+                        </div>
+                        <input type="file" id="leftPhoto" wire:model="leftPhoto" class="hidden" accept="image/*" x-on:change="
+                            const file = $event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    $wire.dispatch('leftPhotoUpdated', { temporaryUrl: e.target.result });
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        ">
                     </label>
                     @error('leftPhoto')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -74,17 +112,36 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Sağ Profil</label>
                     <label for="rightPhoto" class="input-file-label block @error('rightPhoto') border-red-500 @enderror">
-                        @if ($rightPhoto)
-                        <img src="{{ $rightPhoto->temporaryUrl() }}" alt="Sağ profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
-                        <span class="text-sm text-green-600">Fotoğraf seçildi</span>
-                        @else
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span class="mt-2 block text-sm text-gray-600">Sağ profil fotoğrafını yükle</span>
-                        @endif
-                        <input type="file" id="rightPhoto" wire:model="rightPhoto" class="hidden" accept="image/*">
+                        <div x-data="{ preview: null }" x-init="
+                            $wire.on('rightPhotoUpdated', (event) => {
+                                if (event.temporaryUrl) {
+                                    preview = event.temporaryUrl;
+                                }
+                            });
+                        ">
+                            <template x-if="preview">
+                                <img :src="preview" alt="Sağ profil fotoğrafı" class="w-full h-32 object-cover rounded mb-2">
+                            </template>
+                            <template x-if="!preview">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="mt-2 block text-sm text-gray-600">Sağ profil fotoğrafını yükle</span>
+                                </div>
+                            </template>
+                        </div>
+                        <input type="file" id="rightPhoto" wire:model="rightPhoto" class="hidden" accept="image/*" x-on:change="
+                            const file = $event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    $wire.dispatch('rightPhotoUpdated', { temporaryUrl: e.target.result });
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        ">
                     </label>
                     @error('rightPhoto')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class SkinAnalysis extends Model {
     use HasFactory;
@@ -21,14 +22,14 @@ class SkinAnalysis extends Model {
 
     // Fotoğraf yollarını tam URL'lere dönüştürme
     public function getFrontPhotoUrlAttribute() {
-        return $this->front_photo ? asset('storage/' . $this->front_photo) : null;
+        return $this->front_photo ? Storage::disk('r2')->url($this->front_photo) : null;
     }
 
     public function getLeftPhotoUrlAttribute() {
-        return $this->left_photo ? asset('storage/' . $this->left_photo) : null;
+        return $this->left_photo ? Storage::disk('r2')->url($this->left_photo) : null;
     }
 
     public function getRightPhotoUrlAttribute() {
-        return $this->right_photo ? asset('storage/' . $this->right_photo) : null;
+        return $this->right_photo ? Storage::disk('r2')->url($this->right_photo) : null;
     }
 }

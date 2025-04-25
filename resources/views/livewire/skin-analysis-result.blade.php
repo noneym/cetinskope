@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 <div>
     <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-2">Cilt Analiz Sonuçlarınız</h2>
@@ -8,15 +12,15 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="card p-4">
-            <img src="{{ asset('storage/' . $analysis->front_photo) }}" alt="Ön Profil" class="w-full h-48 object-cover rounded-lg mb-2">
+            <img src="{{ Storage::disk('r2')->url($analysis->front_photo) }}" alt="Ön Profil" class="w-full h-48 object-cover rounded-lg mb-2">
             <p class="text-center text-sm text-gray-600">Ön Profil</p>
         </div>
         <div class="card p-4">
-            <img src="{{ asset('storage/' . $analysis->left_photo) }}" alt="Sol Profil" class="w-full h-48 object-cover rounded-lg mb-2">
+            <img src="{{ Storage::disk('r2')->url($analysis->left_photo) }}" alt="Sol Profil" class="w-full h-48 object-cover rounded-lg mb-2">
             <p class="text-center text-sm text-gray-600">Sol Profil</p>
         </div>
         <div class="card p-4">
-            <img src="{{ asset('storage/' . $analysis->right_photo) }}" alt="Sağ Profil" class="w-full h-48 object-cover rounded-lg mb-2">
+            <img src="{{ Storage::disk('r2')->url($analysis->right_photo) }}" alt="Sağ Profil" class="w-full h-48 object-cover rounded-lg mb-2">
             <p class="text-center text-sm text-gray-600">Sağ Profil</p>
         </div>
     </div>

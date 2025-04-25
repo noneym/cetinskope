@@ -52,10 +52,10 @@ class SkinAnalysisForm extends Component {
         $this->isLoading = true;
         $this->dispatch('startAnalysis');
 
-        // Fotoğrafları kaydet
-        $frontPhotoPath = $this->frontPhoto->store('skin-photos', 'public');
-        $leftPhotoPath = $this->leftPhoto->store('skin-photos', 'public');
-        $rightPhotoPath = $this->rightPhoto->store('skin-photos', 'public');
+        // Fotoğrafları R2'ye kaydet
+        $frontPhotoPath = $this->frontPhoto->store('skin-photos', 'r2');
+        $leftPhotoPath = $this->leftPhoto->store('skin-photos', 'r2');
+        $rightPhotoPath = $this->rightPhoto->store('skin-photos', 'r2');
 
         // Analiz için fotoğraf yollarını hazırla
         $photoPaths = [

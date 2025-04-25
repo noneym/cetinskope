@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -56,6 +56,23 @@ return [
             'throw' => false,
         ],
 
+        'r2' => [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY_ID'),
+            'secret' => env('R2_ACCESS_KEY_SECRET'),
+            'region' => 'auto',
+            'bucket' => env('R2_BUCKET'),
+            'url' => env('R2_URL'),
+            'endpoint' => env('R2_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            'throw' => true,
+            'visibility' => 'public',
+            'root' => '', // Bucket içinde bir dizin belirtmek istiyorsanız buraya yazabilirsiniz
+            'options' => [
+                'ACL' => 'public-read', // Dosyaların public erişilebilir olmasını sağlar
+            ],
+        ],
+
     ],
 
     /*
@@ -64,7 +81,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may configure the symbolic links that will be created when the
-    | `storage:link` Artisan command is executed. The array keys should be
+    | `storage:link` command is executed. The array keys should be the
     | the locations of the links and the values should be their targets.
     |
     */

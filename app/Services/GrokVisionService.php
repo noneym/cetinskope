@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class GrokVisionService {
     protected $apiKey;
@@ -19,10 +20,26 @@ class GrokVisionService {
     public function analyzeSkinPhotos(array $imagePaths) {
         try {
             $imagesBase64 = array_map(function ($path) {
+                // Resim dosyasının tam yolunu al
+                $fullPath = Storage::disk('public')->path($path);
+
+                // Dosyanın var olup olmadığını kontrol et
+                if (!file_exists($fullPath)) {
+                    Log::error("Resim dosyası bulunamadı: " . $fullPath);
+                    throw new \Exception("Resim dosyası bulunamadı: " . $path);
+                }
+
+                // Resmi base64'e çevir
+                $imageData = file_get_contents($fullPath);
+                if ($imageData === false) {
+                    Log::error("Resim okunamadı: " . $fullPath);
+                    throw new \Exception("Resim okunamadı: " . $path);
+                }
+
                 return [
                     "type" => "image_url",
                     "image_url" => [
-                        "url" => "data:image/jpeg;base64," . base64_encode(file_get_contents(storage_path('app/public/' . $path)))
+                        "url" => "data:image/jpeg;base64," . base64_encode($imageData)
                     ]
                 ];
             }, $imagePaths);

@@ -28,13 +28,17 @@ RUN apk update && apk add --no-cache \
 # Node.js v20'yi yüklemek için gerekli depoyu ekle ve yükle
 RUN apk add --no-cache nodejs-current npm
 
-
-
 # zend.exception_ignore_args ayarını güncelle
 RUN echo "zend.exception_ignore_args = Off" >> /usr/local/etc/php/php.ini
 
 # Uygulama kodunu kopyala
 COPY . /var/www/html
+
+# Storage dizini için gerekli izinleri ayarla
+RUN mkdir -p /var/www/html/storage/app/livewire-tmp \
+    && chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 777 /var/www/html/storage/app/livewire-tmp
 
 # Özel Nginx konfigürasyon dosyasını kopyala
 COPY nginx.conf /etc/nginx/sites-enabled/default.conf

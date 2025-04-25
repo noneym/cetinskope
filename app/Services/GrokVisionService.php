@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class GrokVisionService {
     protected $apiKey;
@@ -20,13 +19,10 @@ class GrokVisionService {
     public function analyzeSkinPhotos(array $imagePaths) {
         try {
             $imagesBase64 = array_map(function ($path) {
-                $disk = Storage::disk('r2');
-                $content = $disk->get($path);
-
                 return [
                     "type" => "image_url",
                     "image_url" => [
-                        "url" => "data:image/jpeg;base64," . base64_encode($content)
+                        "url" => "data:image/jpeg;base64," . base64_encode(file_get_contents(storage_path('app/public/' . $path)))
                     ]
                 ];
             }, $imagePaths);
